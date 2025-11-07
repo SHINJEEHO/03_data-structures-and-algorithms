@@ -1,5 +1,7 @@
 package com.ohgiraffers.section01.sorting;
 
+import java.util.Arrays;
+
 /* 퀵 정렬
  * 기준 값(pivot)을 선정하여 해당 값을 기준으로 작은 값과 큰 값으로 "분할"하는 방식이다.
  * 분할 후 각각의 부분 배열을 재귀적으로 정렬하여 정렬을 완성한다.
@@ -13,6 +15,45 @@ public class D_QuickSort {
      * 프로그램을 작성한다. */
 
     public static void solution(int[] arr){
+        // 5, 3, 8, 9, 2, 4, 7
+        System.out.println("원본 배열 : " + Arrays.toString(arr));
+        quickSort(arr, 0, arr.length - 1);
+        System.out.println("정렬된 배열 : " + Arrays.toString(arr));
 
+    }
+
+    private static void quickSort(int[] arr, int low, int high) {
+
+        if(low >= high) return; // 기본 종료 조건
+
+        int partitionindex = partition(arr, low, high);
+
+    }
+
+    private static int partition(int[] arr, int low, int high) {
+        int pivot = arr[(low + high) / 2];
+        System.out.println("피벗 " + pivot + " 기준, 인덱스 범위 : " + low + " ~ " + high);
+        System.out.println("분할 전 배열 : " + Arrays.toString(arr));
+        // low: 시작인덱스 , high: 마지막 인덱스
+        while(low <= high) {
+            while(arr[low] < pivot) low++;  // 왼쪽에서 오른쪽으로 이동
+            while(arr[high] > pivot) high--; // 오른쪽에서 왼쪽으로 이동
+
+            if(low <= high) {
+                swap(arr, low, high);
+                low++;
+                high--;
+            }
+        }
+        System.out.println("분할 후 배열 : " + Arrays.toString(arr));
+        System.out.println("반환할 pivot인덱스 : " + low);
+        System.out.println("===================================================");
+        return low;
+    }
+
+    private static void swap(int[] arr, int index1, int index2) {
+        int temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
     }
 }
