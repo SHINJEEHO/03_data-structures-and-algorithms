@@ -31,4 +31,8 @@ public class B_SelectionSort {
      *  예시 출력 2
      *    - 64 42 34 29 28 12
      * */
+
+    public static void solution(int length, int[] actual) {
+
+    }
 }
