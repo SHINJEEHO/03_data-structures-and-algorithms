@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class F_FindTreeParent {
@@ -56,7 +58,22 @@ public class F_FindTreeParent {
 
     private static void bfs(int root) {
 
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(root);
+        visited[root] = true;
 
+        while (!queue.isEmpty()) {
+            int parentNode = queue.poll();
+
+            /* 연결된 노드를 반복 */
+            for(int childNode : list[parentNode]){
+                if(!visited[childNode]){
+                    visited[childNode] = true;
+                    parent[childNode] = parentNode; // 부모를 관리하는 배열에 해당 자식 노드의 부모 노드를 담는다.
+                    queue.offer(childNode);
+                }
+            }
+        }
 
 
 
