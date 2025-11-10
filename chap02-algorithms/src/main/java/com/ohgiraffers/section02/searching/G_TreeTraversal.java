@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class G_TreeTraversal {
 
@@ -22,6 +23,63 @@ public class G_TreeTraversal {
         Arrays.fill(left,-1);
         Arrays.fill(right,-1);
 
+        for(int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            char parent = st.nextToken().charAt(0);
+            char lchild = st.nextToken().charAt(0);
+            char rcchild = st.nextToken().charAt(0);
+
+            int idx = parent - 'A';
+
+            if(lchild != '.'){
+                left[idx] = lchild - 'A';
+            }
+            if(rcchild != '.'){
+                right[idx] = rcchild - 'A';
+            }
+
+            System.out.println("노드 : " + parent +  "(인덱스 " + i + ")" + "왼쪽 자식 : " + lchild + "오른쪽 자식 : " + rcchild);
+        }
+
+        // 전위 순회
+        sb = new StringBuilder();
+        preorder(0);
+        sb.append("\n");
+
+        // 중위 순회
+        inorder(0);
+        sb.append("\n");
+
+        // 후위 순회
+        postorder(0);
+
+        System.out.println("===========================================================");
         return sb.toString();
     }
+
+
+    // 전위 순회 : 루트, 왼쪽, 오른쪽
+
+    private static void preorder(int node) {
+        if(node == -1) return;
+        sb.append((char)(node + 'A'));
+        preorder(left[node]);
+        preorder(right[node]);
+    }
+    // 중위 순회 : 왼쪽, 루트, 오른쪽
+
+    private static void inorder(int node) {
+        if(node == -1) return;
+        inorder(left[node]);
+        sb.append((char)(node + 'A'));
+        inorder(right[node]);
+    }
+    // 후위 순회 : 왼쪽, 오른쪽, 루트
+    private static void postorder(int node) {
+        if(node == -1) return;
+        postorder(left[node]);
+        postorder(right[node]);
+        sb.append((char)(node + 'A'));
+    }
+
 }
